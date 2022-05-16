@@ -1,0 +1,82 @@
+# Angular
+
+# Compiled output
+/Wallet-Application-Angular/dist
+/Wallet-Application-Angular/tmp
+/Wallet-Application-Angular/out-tsc
+/Wallet-Application-Angular/bazel-out
+
+# Node
+/Wallet-Application-Angular/node_modules
+/Wallet-Application-Angular/npm-debug.log
+/Wallet-Application-Angular/yarn-error.log
+
+# IDEs and editors
+/Wallet-Application-Angular/.idea/
+/Wallet-Application-Angular/.project
+/Wallet-Application-Angular/.classpath
+/Wallet-Application-Angular/.c9/
+/Wallet-Application-Angular/*.launch
+/Wallet-Application-Angular/.settings/
+/Wallet-Application-Angular/*.sublime-workspace
+
+# Visual Studio Code
+/Wallet-Application-Angular/.vscode/*
+/Wallet-Application-Angular/!.vscode/settings.json
+/Wallet-Application-Angular/!.vscode/tasks.json
+/Wallet-Application-Angular/!.vscode/launch.json
+/Wallet-Application-Angular/!.vscode/extensions.json
+/Wallet-Application-Angular/.history/*
+
+# Miscellaneous
+/Wallet-Application-Angular/.angular/cache
+/Wallet-Application-Angular/.sass-cache/
+/Wallet-Application-Angular/connect.lock
+/Wallet-Application-Angular/coverage
+/Wallet-Application-Angular/libpeerconnection.log
+/Wallet-Application-Angular/testem.log
+/Wallet-Application-Angular/typings
+
+# System files
+/Wallet-Application-Angular/.DS_Store
+/Wallet-Application-Angular/Thumbs.db
+
+
+# Spring
+/Wallet-Application-Spring/HELP.md
+/Wallet-Application-Spring/target/
+/Wallet-Application-Spring/!.mvn/wrapper/maven-wrapper.jar
+/Wallet-Application-Spring/!**/src/main/**/target/
+/Wallet-Application-Spring/!**/src/test/**/target/
+
+### STS ###
+/Wallet-Application-Spring/.apt_generated
+/Wallet-Application-Spring/.classpath
+/Wallet-Application-Spring/.factorypath
+/Wallet-Application-Spring/.project
+/Wallet-Application-Spring/.settings
+/Wallet-Application-Spring/.springBeans
+/Wallet-Application-Spring/.sts4-cache
+
+### IntelliJ IDEA ###
+/Wallet-Application-Spring/.idea
+/Wallet-Application-Spring/*.iws
+/Wallet-Application-Spring/*.iml
+/Wallet-Application-Spring/*.ipr
+
+### NetBeans ###
+/Wallet-Application-Spring/nbproject/private/
+/Wallet-Application-Spring/nbbuild/
+/Wallet-Application-Spring/dist/
+/Wallet-Application-Spring/nbdist/
+/Wallet-Application-Spring/.nb-gradle/
+/Wallet-Application-Spring/build/
+/Wallet-Application-Spring/!**/src/main/**/build/
+/Wallet-Application-Spring/!**/src/test/**/build/
+
+### VS Code ###
+/Wallet-Application-Spring/.vscode/
+
+.metadata
+Servers/
+
