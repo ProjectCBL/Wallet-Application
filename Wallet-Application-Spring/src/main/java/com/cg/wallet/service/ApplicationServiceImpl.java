@@ -47,7 +47,13 @@ public class ApplicationServiceImpl implements ApplicationService{
 
 	@Override
 	public Customer validateLogin(String userName, String password) {
-		return customerRepo.findByName(userName, password);
+		try {
+			return customerRepo.findByName(userName, password);
+		}
+		catch(EntityNotFoundException e) {
+			return null;
+		}
+		
 	}
 	
 	@Override
