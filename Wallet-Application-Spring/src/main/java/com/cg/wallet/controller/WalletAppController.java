@@ -1,14 +1,12 @@
 package com.cg.wallet.controller;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +26,7 @@ import com.cg.wallet.entities.Transaction;
 import com.cg.wallet.service.ApplicationService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class WalletAppController {
 
 	@Autowired
@@ -60,7 +59,7 @@ public class WalletAppController {
 	//region Wallet Application Routes
 	
 	@RequestMapping(value="/validateLogin", method=RequestMethod.POST)
-	public Customer findFlights(@RequestBody Login login) {
+	public Customer validateLogin(@RequestBody Login login) {
 		return appService.validateLogin(login.getUsername(), login.getPassword());
 	}
 	

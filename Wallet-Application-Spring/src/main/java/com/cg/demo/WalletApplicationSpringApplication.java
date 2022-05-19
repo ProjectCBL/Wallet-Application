@@ -12,7 +12,6 @@ import com.cg.wallet.controller.WalletAppController;
 import com.cg.wallet.service.ApplicationService;
 import com.cg.wallet.service.ApplicationServiceImpl;
 
-@CrossOrigin
 @SpringBootApplication
 @EnableJpaRepositories("com.cg.wallet.repository")
 @EntityScan("com.cg.wallet.entities") 
