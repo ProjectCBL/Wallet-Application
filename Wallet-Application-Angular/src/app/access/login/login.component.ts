@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { Customer } from 'src/app/customer';
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-login',
@@ -10,7 +11,7 @@ import { Customer } from 'src/app/customer';
 })
 export class LoginComponent implements OnInit {
 	customer: Customer;
-	loginFailed: boolean = false;
+	loginFailed: boolean = true;
 
 	constructor(private router: Router, private appService: AppService) {
 		localStorage.clear();
@@ -18,6 +19,13 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
+		$("#fail-text").hide();
+
+		$(`button`).on('click', function(){
+			$("#fail-text").fadeIn('slow');
+		});
+
 	}
 
 	public validateLogin(username:string, password:string){
@@ -35,7 +43,7 @@ export class LoginComponent implements OnInit {
 				this.router.navigate(['/dashboard']);
 			}
 			else{
-				this.loginFailed = true;
+				this.loginFailed = false;
 			}
 		});
 

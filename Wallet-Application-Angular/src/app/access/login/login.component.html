@@ -9,10 +9,11 @@
             <label for="passwordForm">Password</label>
             <input type="password" #password class="form-control" id="" placeholder="Password" required>
         </div>
-        <div *ngIf="loginFailed">
-            <p class="failed">You've entered inccorrect creditentials...</p>
+        <div [hidden]="loginFailed">
+            <p id="fail-text" class="failed fade-in">You've entered incorrect credentials...</p>
         </div>
         <button type="submit" class="btn btn-primary" (click)="validateLogin(username.value, password.value)">Login</button>
     </form>
+    <br>
     <p>Don't have an account? <a href="#" routerLink="/register">Register here</a></p>
 <div>
