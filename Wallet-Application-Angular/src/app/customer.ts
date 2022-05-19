@@ -8,18 +8,5 @@ export class Customer{
     public lastName:String = "";
     public walletBalance:number = 0;
     public savingBalance:number = 0;
-
-    /*constructor(
-
-        customerId:number = 0,
-        userName:String = "",
-        password:String = "",
-        email:String = "",
-        firstName:String = "",
-        lastName:String = "",
-        walletBalance:number = 0,
-        savingBalance:number = 0
-        
-    ){}*/
-
+    
 }
