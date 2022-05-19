@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 		$("#fail-text").hide();
 
 		$(`button`).on('click', function(){
-			$("#fail-text").fadeIn('slow');
+			$("#fail-text").fadeIn('fast');
 		});
 
 	}
