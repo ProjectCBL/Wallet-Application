@@ -1,17 +1,13 @@
 package com.cg.wallet.service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.wallet.bean.CreateNewTransferRequest;
