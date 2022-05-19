@@ -1,11 +1,15 @@
 package com.cg.wallet.controller;
 
-import java.util.Date;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
-import java.util.Optional;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,14 +33,16 @@ public class WalletAppController {
 	@Autowired
 	ApplicationService appService;
 	
-	@RequestMapping(value="/test")
-	public String test() {
-		return "Hello World!!";
-	}
+	//region Mapped routes used to test various inputs and outputs of the controller
 	
 	@RequestMapping(value="/findCustomer", method=RequestMethod.POST)
-	public Optional<Customer> findFlights(@RequestParam("id") Integer id) {
+	public Customer findCustomer(@RequestParam("id") Integer id) {
 		return appService.getCustomerById(id);
+	}
+	
+	@RequestMapping(value="/findRecentTransaction", method=RequestMethod.POST)
+	public Transaction findRecentTransaction(@RequestParam("id") Integer id) {
+		return appService.getRecentTransaction(id);
 	}
 	
 	@RequestMapping(value="/allCustomers")
@@ -49,13 +55,17 @@ public class WalletAppController {
 		return appService.getAllTransactions();
 	}
 	
+	//endregion
+	
+	//region Wallet Application Routes
+	
 	@RequestMapping(value="/validateLogin", method=RequestMethod.POST)
 	public Customer findFlights(@RequestBody Login login) {
 		return appService.validateLogin(login.getUsername(), login.getPassword());
 	}
 	
-	@RequestMapping(value="/addNewCustomer", method=RequestMethod.POST)
-	public Integer addCustomer(@RequestBody CreateNewUserRequest request) {
+	@RequestMapping(value="/registerCustomer", method=RequestMethod.POST)
+	public Boolean registerCustomer(@RequestBody CreateNewUserRequest request) {
 		return appService.addNewUser(request);
 	}
 	
@@ -75,12 +85,12 @@ public class WalletAppController {
 	}
 	
 	@RequestMapping(value="/getLastTenTransactions", method=RequestMethod.GET)
-	public List<Transaction> withdrawMoney(@RequestParam("id") Integer id) {
+	public List<Transaction> getLastTenTransactions(@RequestParam("id") Integer id) {
 		return appService.getLastTenTransactions(id);
 	}
 	
 	@RequestMapping(value="/searchForTransactionsAtDate", method=RequestMethod.POST)
-	public List<Transaction> getTransactionsAtDate(@RequestBody CreateNewSearchByDateRequest request){
+	public List<Transaction> getTransactionsAtDate(@RequestBody CreateNewSearchByDateRequest request) {
 		return appService.findTransactionsAtDate(request.getAccountId(), request.getTransactionDate());
 	}
 	
@@ -89,6 +99,18 @@ public class WalletAppController {
 		return appService.transferMoney(request);
 	}
 	
+	@ExceptionHandler(value= {UnexpectedRollbackException.class})
+	public ResponseEntity<String> duplicateUsernameConstraint(Exception exception){
+		exception.printStackTrace();
+		return new ResponseEntity<String>("That username is already in use.", HttpStatus.BAD_REQUEST);
+	}
 	
+	@ExceptionHandler(value=Exception.class)
+	public ResponseEntity<String> handleAllExceptions(Exception exception){
+		exception.printStackTrace();
+		return new ResponseEntity<String>("Sorry, it appears something went wrong on our end. Please try again later.", HttpStatus.BAD_REQUEST);
+	}
+	
+	//endregion
 	
 }
