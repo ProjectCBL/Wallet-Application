@@ -3,12 +3,16 @@
     <form>
         <div class="form-group">
             <label for="usernameForm">Username</label>
-            <input type="text" class="form-control" id="usernameForm" placeholder="Enter username" required>
+            <input type="text" #username class="form-control" id="usernameForm" placeholder="Enter username" required>
         </div>
         <div class="form-group">
             <label for="passwordForm">Password</label>
-            <input type="password" class="form-control" id="" placeholder="Password" required>
+            <input type="password" #password class="form-control" id="" placeholder="Password" required>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <div *ngIf="loginFailed">
+            <p class="failed">You've entered inccorrect creditentials...</p>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="validateLogin(username.value, password.value)">Login</button>
     </form>
+    <p>Don't have an account? <a href="#" routerLink="/register">Register here</a></p>
 <div>
