@@ -10,5 +10,6 @@ export class Transaction{
     public amount:number = 0.0;
     public source:String = "";
     public destination:string = "";
+    public customerId:number = 0;
 
 }
