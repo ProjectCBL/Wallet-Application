@@ -92,7 +92,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		try {
 			
-			Double newBalance = customer.getWalletBalance() + amount;
+			Double newBalance = roundOffBalance(customer.getWalletBalance() + amount);
 			
 			Transaction transaction = new Transaction();
 			transaction.setType("Add");
@@ -130,7 +130,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		try {
 		
-			Double newBalance = customer.getSavingBalance() + amount;
+			Double newBalance = roundOffBalance(customer.getSavingBalance() + amount);
 			
 			Transaction transaction = new Transaction();
 			transaction.setType("Deposit");
@@ -176,14 +176,14 @@ public class ApplicationServiceImpl implements ApplicationService{
 			transaction.setWalletBalanceBefore(customer.getWalletBalance());
 			transaction.setSavingBalanceBefore(customer.getSavingBalance());
 			
-			if(source.equals("Saving")) {
-				newBalance = customer.getSavingBalance() - amount;
+			if(source.equals("savingBalance")) {
+				newBalance = roundOffBalance(customer.getSavingBalance() - amount);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
 				transaction.setSavingBalanceAfter(newBalance);
 				customer.setSavingBalance(newBalance);
 			}
 			else {
-				newBalance = customer.getWalletBalance() - amount;
+				newBalance = roundOffBalance(customer.getWalletBalance() - amount);
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
 				customer.setWalletBalance(newBalance);
@@ -228,13 +228,13 @@ public class ApplicationServiceImpl implements ApplicationService{
 			
 			// Source
 			if(request.getSource().equals("Saving")) {
-				newBalance = customer.getSavingBalance() - request.getAmount();
+				newBalance = roundOffBalance(customer.getSavingBalance() - request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
 				customer.setSavingBalance(newBalance);
 			}
 			else{
-				newBalance = customer.getWalletBalance() - request.getAmount();
+				newBalance = roundOffBalance(customer.getWalletBalance() - request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
 				customer.setWalletBalance(newBalance);
@@ -242,12 +242,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 			
 			// Destination
 			if(request.getDestination().equals("Saving")) {
-				newBalance = customer.getSavingBalance() + request.getAmount();
+				newBalance = roundOffBalance(customer.getSavingBalance() + request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				customer.setSavingBalance(newBalance);
 			}
 			else if(request.getDestination().equals("Wallet")){
-				newBalance = customer.getWalletBalance() + request.getAmount();
+				newBalance = roundOffBalance(customer.getWalletBalance() + request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
 				customer.setWalletBalance(newBalance);
 			}
@@ -307,6 +307,10 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private Transaction getLastTransaction(Integer customerId) {
 		List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(customerId);
 		return transactions.get(transactions.size()-1);
+	}
+	
+	private Double roundOffBalance(Double balance) {
+		return Math.round(balance * 100.0) / 100.0;
 	}
 	
 }
