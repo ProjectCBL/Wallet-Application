@@ -1,1 +1,23 @@
-<p>deposit works!</p>
+<div>
+
+    <label for="addMoney">How much would you like to deposit into your savings?</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">$</span>
+        </div>
+        <input type="text" class="form-control" id="addMoney" aria-describedby="basic-addon3" [(ngModel)]="value"
+            placeholder="0.00" numbersOnly>
+        <button type="submit" class="btn btn-purple" (click)="depositMoneyIntoSavings()">Add</button>
+    </div>
+    <div [hidden]="!addError">
+        <p id="fail-text" class="failed fade-in">{{errorMsg}}</p>
+    </div>
+    <div *ngIf="showTransaction" id="transaction-summary">
+        <app-transaction-card [type]="type" [dateOfTransaction]="dateOfTransaction"
+            [timeOfTransaction]="timeOfTransaction" [walletBalanceBefore]="walletBalanceBefore"
+            [savingBalanceBefore]="savingBalanceBefore" [walletBalanceAfter]="walletBalanceAfter"
+            [savingBalanceAfter]="savingBalanceAfter" [source]="source" [destination]="destination" [amount]="amount">
+        </app-transaction-card>
+    </div>
+
+</div>
