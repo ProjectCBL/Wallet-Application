@@ -49,7 +49,7 @@ export class AddComponent implements OnInit {
 			const newBalance = (Number(currentWalletBalance) + Number(fixedValue));
 
 			this.appService.addMoneyToWallet(accountId, Number(fixedValue)).subscribe((response:any)=>{
-				localStorage.setItem("walletBalance", newBalance.toString());
+				localStorage.setItem("walletBalance", newBalance.toFixed(2));
 				this.newWalletBalance.emit();
 				this.transferTransactionData(response);
 				this.showTransaction = true;
@@ -64,7 +64,7 @@ export class AddComponent implements OnInit {
 		}
 		else{
 			this.addError = true;
-			this.errorMsg = "Please only use positive numbers...";
+			this.errorMsg = "Please only use positive numbers greater than zero...";
 			this.showTransaction = false;
 		}
 		

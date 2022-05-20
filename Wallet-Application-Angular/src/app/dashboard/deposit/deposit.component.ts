@@ -49,7 +49,7 @@ export class DepositComponent implements OnInit {
 			const newBalance = (Number(currentSavingBalance) + Number(fixedValue));
 
 			this.appService.depositMoneyToSaving(accountId, Number(fixedValue)).subscribe((response: any) => {
-				localStorage.setItem("savingBalance", newBalance.toString());
+				localStorage.setItem("savingBalance", newBalance.toFixed(2));
 				this.newSavingBalance.emit();
 				this.transferTransactionData(response);
 				this.showTransaction = true;

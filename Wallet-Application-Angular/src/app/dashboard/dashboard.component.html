@@ -41,7 +41,7 @@
                                         <app-add (newWalletBalance)="updateWalletBalance()"></app-add>
                                     </div>
                                     <div *ngIf="walletAction == 2">
-                                        <app-withdraw></app-withdraw>
+                                        <app-withdraw [withdrawalSource]="'walletBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
                                     </div>
                                     <div *ngIf="walletAction == 3">
                                         <app-transfer></app-transfer>
@@ -82,7 +82,7 @@
                                         <app-deposit (newSavingBalance)="updateSavingBalance()"></app-deposit>
                                     </div>
                                     <div *ngIf="savingAction == 2">
-                                        <app-withdraw></app-withdraw>
+                                        <app-withdraw [withdrawalSource]="'savingBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
                                     </div>
                                     <div *ngIf="savingAction == 3">
                                         <app-transfer></app-transfer>

@@ -7,7 +7,7 @@
         </div>
         <input type="text" class="form-control" id="addMoney" aria-describedby="basic-addon3" [(ngModel)]="value"
             placeholder="0.00" numbersOnly>
-        <button type="submit" class="btn btn-purple" (click)="depositMoneyIntoSavings()">Add</button>
+        <button type="submit" class="btn btn-purple" (click)="depositMoneyIntoSavings()">Deposit</button>
     </div>
     <div [hidden]="!addError">
         <p id="fail-text" class="failed fade-in">{{errorMsg}}</p>

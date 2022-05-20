@@ -36,6 +36,15 @@ export class DashboardComponent implements OnInit {
 		this.savingBalance = localStorage.getItem("savingBalance") as unknown as number;
 	}
 
+	public updateBalanceOnSource(event:string){
+		if (event == "walletBalance"){
+			this.updateWalletBalance();
+		}
+		else{
+			this.updateSavingBalance();
+		}
+	}
+
 	public logout(){
 		localStorage.clear();
 		this.router.navigate(['']);
