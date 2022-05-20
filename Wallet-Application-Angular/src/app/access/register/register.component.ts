@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 		$("#fail-text").hide();
 
 		$(`button`).on('click', function(){
-			$("#fail-text").fadeIn('fast');
+			$("#fail-text").fadeIn('slow');
 		});
 
 	}
