@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { Customer } from 'src/app/customer';
@@ -10,6 +10,9 @@ import * as $ from 'jquery';
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+	
+	@Output() registerRedirect = new EventEmitter();
+	
 	customer: Customer;
 	loginFailed: boolean = true;
 

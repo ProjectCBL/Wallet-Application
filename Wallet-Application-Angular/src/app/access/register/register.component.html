@@ -1,42 +1,52 @@
-<div>
+<div class="animate-opacity">
     <h2>Customer Registration</h2>
     <form>
-        <div class="form-group">
-            <label for="firstnameForm">First Name:</label>
-            <input type="text" #firstname class="form-control" id="firstnameForm" placeholder="First Name" required>
-        </div>
-        <div class="form-group">
-            <label for="lastnameForm">Last Name:</label>
-            <input type="text" #lastname class="form-control" id="lastnameForm" placeholder="Last Name" required>
-        </div>
-        <div class="form-group">
-            <label for="emailForm">Email:</label>
-            <input type="text" #email class="form-control" id="emailForm" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-            <label for="usernameForm">Username:</label>
-            <input type="text" #username class="form-control" id="usernameForm" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-            <label for="passwordForm">Password:</label>
-            <input type="text" #password class="form-control" id="passwordForm" placeholder="Password" required>
-        </div>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="firstnameForm">First Name:</label>
+                        <input type="text" #firstname class="form-control" id="firstnameForm" placeholder="First Name" maxlength="50" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="lastnameForm">Last Name:</label>
+                        <input type="text" #lastname class="form-control" id="lastnameForm" placeholder="Last Name" maxlength="50" required>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label for="emailForm">Email:</label>
+                        <input type="text" #email class="form-control" id="emailForm" placeholder="Email" maxlength="100" required>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label for="usernameRegisterForm">Username:</label>
+                        <input type="text" #username class="form-control" id="usernameRegisterForm" placeholder="Username" maxlength="50" required>
+                    </div>
+                </tr>
+            <tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label for="passwordRegisterForm">Password:</label>
+                        <input type="password" #password class="form-control" id="passwordRegisterForm" placeholder="Password" maxlength="50" required>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <div [hidden]="!displayError">
             <p id="fail-text" class="failed">{{errorMessage.toString()}}</p>
         </div>
-        <button type="submit" class="btn btn-primary"
-            (click)="register(username.value, password.value, email.value, firstname.value, lastname.value)">Login</button>
+        <button type="submit" class="btn btn-purple"
+            (click)="register(username.value, password.value, email.value, firstname.value, lastname.value)">Register</button>
     </form>
     <br>
-    <p>Don't have an account? <a href="#" routerLink="/register">Register here</a></p>
-    <div class="toast" data-autohide="true">
-        <div class="toast-header">
-            <strong class="mr-auto text-primary">Account Created!</strong>
-            <small class="text-muted">Clse</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-        </div>
-        <div class="toast-body">
-            Try logging into your new account.
-        </div>
-    </div>
+    <p>Already have an account? <a href="#" id="login-direct" (click)="loginRedirect.emit()">Click Here</a></p>
 </div>

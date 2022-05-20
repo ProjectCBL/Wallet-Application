@@ -1,0 +1,54 @@
+.component{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.column{
+    width: 50%;
+    height: 100%;
+    background-size: contain;
+}
+
+.c-left{
+    background-image: url("../../assets/purple-vector-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+    z-index: 0;
+}
+
+.c-right{
+    float:right;
+    box-shadow: -10px 0px 25px rgb(37, 36, 36);
+    z-index: 1;
+}
+
+.img-center{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+img{
+    max-width: 45%;
+    max-height: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    filter: drop-shadow(-12px 12px 14px rgb(39, 37, 37));
+}
+
+.component-header{
+    margin-top: 12%;
+}
+
+h1{
+    color: rgb(148, 30, 148);
+    font-size: 385%;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import * as $ from 'jquery';
@@ -10,11 +10,14 @@ import * as $ from 'jquery';
 })
 export class RegisterComponent implements OnInit {
 
+	@Output() loginRedirect = new EventEmitter();
+	@Output() successfulRegistration = new EventEmitter();
+
 	errorMessage:string = '';
 	displayError:boolean = false; 
 	registrationSuccesful:boolean = false;
 
-	constructor(private router: Router, private appService: AppService) { 
+	constructor(private appService: AppService) { 
 
 	}
 
@@ -29,20 +32,26 @@ export class RegisterComponent implements OnInit {
 	}
 
 	public register(username:string, password:string, email:string, firstName:string, lastName: string){
-		this.appService.register(username, password, email, firstName, lastName).subscribe((response:any)=>{
-			if(response instanceof Boolean && response){
-				console.log("something");
-				(<any>$('.toast')).toast('show');
-			}
-			else{
+		if(username != '' && password != '' && email != '' && firstName != '' && lastName != ''){
+
+			this.appService.register(username, password, email, firstName, lastName).subscribe((response:any)=>{
+				if(response != null){
+					this.successfulRegistration.emit();
+					this.loginRedirect.emit();
+				}
+			}, 
+			(error:any)=>{
 				this.displayError = true;
-				this.errorMessage = "Something happened, please try to register again later...";
-			}
-		}, 
-		(error:any)=>{
+				this.errorMessage = error.error;
+			});
+
+		}
+		else{
+
 			this.displayError = true;
-			this.errorMessage = error.error;
-		});
+			this.errorMessage = "Make sure to fill out every field...";
+
+		}
 	}
 
 }

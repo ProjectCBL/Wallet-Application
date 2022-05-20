@@ -19,7 +19,7 @@ import { RecentTransactionsComponent } from './dashboard/history/recent-transact
 import { TransactionSearchByDateComponent } from './dashboard/history/transaction-search-by-date/transaction-search-by-date.component';
 
 const routes: Routes = [
-	{ path: '', component: LoginComponent },
+	{ path: '', component: AccessComponent },
 	{ path: 'dashboard', component: DashboardComponent }
 ]
 

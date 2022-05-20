@@ -1,1 +1,39 @@
-<p>access works!</p>
+<div class="component">
+    <div class="column c-left text-center img-center">
+        <img class="align-middle" src="../../assets/Wallet-icon.png" />
+    </div>
+    <div class="column c-right">
+        <div class="container center">
+            <div class="component-header">
+                <table class="mb-3">
+                    <tr>
+                        <td colspan="2">
+                            <h3>Welcome to</h3>
+                            <h1><strong>Purple Wallet</strong></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        <td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <div [hidden]="showComponent">
+                            <app-login class="animate-opacity" (registerRedirect)="toggleView()"></app-login>
+                        </div>
+                        <div [hidden]="!showComponent">
+                            <app-register class="animate-opacity" (loginRedirect)="toggleView()" (successfulRegistration)=""></app-register>
+                        </div>
+                        
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

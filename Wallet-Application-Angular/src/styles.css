@@ -2,3 +2,29 @@
 *{
     font-family: 'Varela Round', sans-serif;
 }
+
+.btn-purple{
+    background-color: rgb(148, 30, 148);
+    color: white;
+}
+
+.btn-purple:hover{
+    background-color: rgb(124, 27, 124);
+    color: rgb(224, 224, 224);
+}
+
+a{
+    color: rgb(148, 30, 148);
+}
+
+a:link{
+    color: rgb(148, 30, 148);
+}
+
+a:hover{
+    color: rgb(124, 27, 124)
+}
+
+.animate-opacity{animation:opac 0.8s}@keyframes opac{
+    from{opacity:0} to{opacity:1}
+}
