@@ -34,17 +34,17 @@
                                         aria-label=".form-select-lg example" [(ngModel)]="walletAction">
                                         <option>Select an action</option>
                                         <option value="1">Add</option>
-                                        <option value="2">Wallet</option>
+                                        <option value="2">Withdraw</option>
                                         <option value="3">Transfer</option>
                                     </select>
                                     <div *ngIf="walletAction == 1">
                                         <app-add (newWalletBalance)="updateWalletBalance()"></app-add>
                                     </div>
                                     <div *ngIf="walletAction == 2">
-                                        
+                                        <app-withdraw></app-withdraw>
                                     </div>
                                     <div *ngIf="walletAction == 3">
-
+                                        <app-transfer></app-transfer>
                                     </div>
 
                                 </div>
@@ -74,18 +74,18 @@
                                     <select class="form-select form-select-lg mb-3 select-collapse"
                                         aria-label=".form-select-lg example" [(ngModel)]="savingAction">
                                         <option>Select an action</option>
-                                        <option value="1">Add</option>
-                                        <option value="2">Wallet</option>
+                                        <option value="1">Deposit</option>
+                                        <option value="2">Withdraw</option>
                                         <option value="3">Transfer</option>
                                     </select>
                                     <div *ngIf="savingAction == 1">
-
+                                        <app-deposit (newSavingBalance)="updateSavingBalance()"></app-deposit>
                                     </div>
                                     <div *ngIf="savingAction == 2">
-
+                                        <app-withdraw></app-withdraw>
                                     </div>
                                     <div *ngIf="savingAction == 3">
-
+                                        <app-transfer></app-transfer>
                                     </div>
 
                                 </div>
