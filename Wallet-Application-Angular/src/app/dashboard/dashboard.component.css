@@ -1,0 +1,109 @@
+.component {
+    height: auto;
+    padding: 0;
+    margin: 0;
+    background-image: url("../../assets/pink-and-purple-geometric-design-vector.jpg");
+    object-fit: cover;
+    display: flex;
+    justify-content: space-between;
+    z-index: 0;
+}
+
+.floating-container {
+    position: relative;
+    max-width: 55%;
+    min-width: 45%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+}
+
+.center-floating-container{
+    position: absolute;
+    top: 40%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.center-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    max-width: 40%;
+    min-width: 35%;
+    min-height: 35%;
+    border-radius: 25px;
+    box-shadow: -5px 10px 25px rgb(65, 65, 65);
+    z-index: 3;
+}
+
+.img-card {
+    max-width: 20%;
+    max-height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.btn-purple {
+    color: rgb(77, 15, 77);
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    box-shadow: -1px -1px 10px rgb(34, 34, 34);
+    float: left;
+    margin: 2% 2% 5% 5%;
+}
+
+.wallet img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: 4%;
+    bottom: 5%;
+}
+
+.calender img {
+    max-width: 120%;
+    max-height: 120%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: -2%;
+    bottom: -5%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.col-align-left {
+    text-align: left;
+}
+
+.col-align-right {
+    text-align: right;
+    color: purple;
+}
+
+.card-curves {
+    border-radius: 0px;
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, .1);
+}
+
+.btn:focus {
+    box-shadow: inset 0 0px 0 #ddd;
+}
+
+.select-collapse{
+    font-size: larger;
+    width: 100%;
+    border-radius: 8px;
+}
