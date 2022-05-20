@@ -18,6 +18,8 @@ import { HistoryComponent } from './dashboard/history/history.component';
 import { RecentTransactionsComponent } from './dashboard/history/recent-transactions/recent-transactions.component';
 import { TransactionSearchByDateComponent } from './dashboard/history/transaction-search-by-date/transaction-search-by-date.component';
 
+import { NumberOnlyDirective } from './numbers-only.directive';
+
 const routes: Routes = [
 	{ path: '', component: AccessComponent },
 	{ path: 'dashboard', component: DashboardComponent }
@@ -37,6 +39,7 @@ const routes: Routes = [
 		HistoryComponent,
 		RecentTransactionsComponent,
 		TransactionSearchByDateComponent,
+		NumberOnlyDirective
 	],
 	imports: [
 		BrowserModule,
