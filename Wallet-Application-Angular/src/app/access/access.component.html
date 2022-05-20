@@ -24,7 +24,7 @@
                             <app-login class="animate-opacity" (registerRedirect)="toggleView()"></app-login>
                         </div>
                         <div [hidden]="!showComponent">
-                            <app-register class="animate-opacity" (loginRedirect)="toggleView()" (successfulRegistration)=""></app-register>
+                            <app-register class="animate-opacity" (loginRedirect)="toggleView()" (successfulRegistration)="alertOnSuccessRegistration()"></app-register>
                         </div>
                         
                     </tr>

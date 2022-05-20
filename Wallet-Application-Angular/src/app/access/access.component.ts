@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-access',
@@ -7,7 +6,7 @@ import * as $ from 'jquery';
 	styleUrls: ['./access.component.css']
 })
 export class AccessComponent implements OnInit {
-
+ 
 	showComponent:boolean = false;
 
 	constructor() { }
@@ -17,6 +16,10 @@ export class AccessComponent implements OnInit {
 
 	public toggleView(){
 		this.showComponent = !this.showComponent;
+	}
+
+	public alertOnSuccessRegistration(){
+		alert("Account Successfully Created!");
 	}
 	
 }
