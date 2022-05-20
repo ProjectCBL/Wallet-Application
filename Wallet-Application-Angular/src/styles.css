@@ -28,3 +28,7 @@ a:hover{
 .animate-opacity{animation:opac 0.8s}@keyframes opac{
     from{opacity:0} to{opacity:1}
 }
+
+.failed{
+    color: red;
+}
