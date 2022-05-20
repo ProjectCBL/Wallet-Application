@@ -32,6 +32,10 @@ export class DashboardComponent implements OnInit {
 		this.walletBalance = localStorage.getItem("walletBalance") as unknown as number;
 	}
 
+	public updateSavingBalance(){
+		this.savingBalance = localStorage.getItem("savingBalance") as unknown as number;
+	}
+
 	public logout(){
 		localStorage.clear();
 		this.router.navigate(['']);
