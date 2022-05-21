@@ -1,1 +1,63 @@
-<p>transfer works!</p>
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <label>Transfer Source:</label>
+                <select class="form-control mb-2" disabled>
+                    <option selected disabled>{{transferSourceHtmlValue}}</option>
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <label>Amount:</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">$</span>
+                    </div>
+                    <input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="0.00"
+                        numbersOnly [(ngModel)]="value">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <label>Transfer Destination:</label>
+                <select class="custom-select mb-2" [(ngModel)]="selectedDestination">
+                    <option value="walletBalance" *ngIf="transferSourceHtmlValue != 'Wallet'">Wallet</option>
+                    <option value="savingBalance" *ngIf="transferSourceHtmlValue != 'Savings'">Savings</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="selectedDestination=='custom'">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Account Name:</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="Name"
+                            maxlength="100" [(ngModel)]="routingName">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label>Routing Number:</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="Routing #"
+                            maxlength="100" numbersOnly [(ngModel)]="routingNumber">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!addError">
+            <p id="fail-text" class="failed fade-in">{{errorMsg}}</p>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-purple transfer-btn" (click)="transferMoney()">Transfer</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showTransaction" id="transaction-summary">
+        <app-transaction-card [type]="type" [dateOfTransaction]="dateOfTransaction"
+            [timeOfTransaction]="timeOfTransaction" [walletBalanceBefore]="walletBalanceBefore"
+            [savingBalanceBefore]="savingBalanceBefore" [walletBalanceAfter]="walletBalanceAfter"
+            [savingBalanceAfter]="savingBalanceAfter" [source]="source" [destination]="destination" [amount]="amount">
+        </app-transaction-card>
+    </div>
+</div>

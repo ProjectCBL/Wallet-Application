@@ -37,12 +37,14 @@ export class DashboardComponent implements OnInit {
 	}
 
 	public updateBalanceOnSource(event:string){
-		if (event == "walletBalance"){
-			this.updateWalletBalance();
-		}
-		else{
-			this.updateSavingBalance();
-		}
+		(event == "walletBalance") ? this.updateWalletBalance() : this.updateSavingBalance();
+	}
+
+	updateBalanceOnTransfer(event:any){
+
+		(event.source == "walletBalance") ? this.updateWalletBalance() : this.updateSavingBalance();
+		(event.destination == "walletBalance") ? this.updateWalletBalance() : (event.destination == "savingBalance") ? this.updateSavingBalance() : ()=>{};
+
 	}
 
 	public logout(){

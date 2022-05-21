@@ -29,10 +29,9 @@
                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                                 data-parent="#accordion">
                                 <div class="card-body ">
-
-                                    <select class="form-select form-select-lg mb-3 select-collapse"
+                                    <label>Select an Action:</label>
+                                    <select class="custom-select mb-3 select-collapse"
                                         aria-label=".form-select-lg example" [(ngModel)]="walletAction">
-                                        <option>Select an action</option>
                                         <option value="1">Add</option>
                                         <option value="2">Withdraw</option>
                                         <option value="3">Transfer</option>
@@ -44,7 +43,7 @@
                                         <app-withdraw [withdrawalSource]="'walletBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
                                     </div>
                                     <div *ngIf="walletAction == 3">
-                                        <app-transfer></app-transfer>
+                                        <app-transfer [transferSource]="'walletBalance'" [transferSourceHtmlValue]="'Wallet'" (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
                                     </div>
 
                                 </div>
@@ -70,10 +69,9 @@
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                                 data-parent="#accordion">
                                 <div class="card-body">
-
-                                    <select class="form-select form-select-lg mb-3 select-collapse"
+                                    <label>Select an Action:</label>
+                                    <select class="custom-select mb-3 select-collapse"
                                         aria-label=".form-select-lg example" [(ngModel)]="savingAction">
-                                        <option>Select an action</option>
                                         <option value="1">Deposit</option>
                                         <option value="2">Withdraw</option>
                                         <option value="3">Transfer</option>
@@ -85,7 +83,7 @@
                                         <app-withdraw [withdrawalSource]="'savingBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
                                     </div>
                                     <div *ngIf="savingAction == 3">
-                                        <app-transfer></app-transfer>
+                                        <app-transfer [transferSource]="'savingBalance'" [transferSourceHtmlValue]="'Savings'" (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
                                     </div>
 
                                 </div>
