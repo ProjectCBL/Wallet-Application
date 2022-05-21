@@ -3,96 +3,108 @@
     <div>
         <div class="container">
 
-            <div class="card center-card">
-                <img class="card-img-top img-card" src="../../assets/vector-wallet-icon.png" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title"><strong>Welcome back, {{firstname}}</strong></h4>
+            <div *ngIf="dashboardView=='History'">
+                <app-history></app-history>
+            </div>
+            <div *ngIf="dashboardView=='Basic'">
+                <div class="card center-card">
+                    <img class="card-img-top img-card" src="../../assets/vector-wallet-icon.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title"><strong>Welcome back, {{firstname}}</strong></h4>
 
-                    <div id="accordion">
+                        <div id="accordion">
 
-                        <div class="card mb-3 card-curves">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div class="row">
-                                            <div class="col-6 col-align-left">
-                                                <h3><strong>Wallet Balance</strong></h3>
+                            <div class="card mb-3 card-curves">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="row">
+                                                <div class="col-6 col-align-left">
+                                                    <h3><strong>Wallet Balance</strong></h3>
+                                                </div>
+                                                <div class="col-6 col-align-right">
+                                                    <h3>{{walletBalance}}$</h3>
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-align-right">
-                                                <h3>{{walletBalance}}$</h3>
-                                            </div>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                    data-parent="#accordion">
+                                    <div class="card-body ">
+                                        <label>Select an Action:</label>
+                                        <select class="custom-select mb-3 select-collapse"
+                                            aria-label=".form-select-lg example" [(ngModel)]="walletAction">
+                                            <option value="1">Add</option>
+                                            <option value="2">Withdraw</option>
+                                            <option value="3">Transfer</option>
+                                        </select>
+                                        <div *ngIf="walletAction == 1">
+                                            <app-add (newWalletBalance)="updateWalletBalance()"></app-add>
                                         </div>
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                data-parent="#accordion">
-                                <div class="card-body ">
-                                    <label>Select an Action:</label>
-                                    <select class="custom-select mb-3 select-collapse"
-                                        aria-label=".form-select-lg example" [(ngModel)]="walletAction">
-                                        <option value="1">Add</option>
-                                        <option value="2">Withdraw</option>
-                                        <option value="3">Transfer</option>
-                                    </select>
-                                    <div *ngIf="walletAction == 1">
-                                        <app-add (newWalletBalance)="updateWalletBalance()"></app-add>
-                                    </div>
-                                    <div *ngIf="walletAction == 2">
-                                        <app-withdraw [withdrawalSource]="'walletBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
-                                    </div>
-                                    <div *ngIf="walletAction == 3">
-                                        <app-transfer [transferSource]="'walletBalance'" [transferSourceHtmlValue]="'Wallet'" (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
-                                    </div>
+                                        <div *ngIf="walletAction == 2">
+                                            <app-withdraw [withdrawalSource]="'walletBalance'"
+                                                (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
+                                        </div>
+                                        <div *ngIf="walletAction == 3">
+                                            <app-transfer [transferSource]="'walletBalance'"
+                                                [transferSourceHtmlValue]="'Wallet'"
+                                                (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card mb-3 card-curves">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                    <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
-                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <div class="row">
-                                            <div class="col-6 col-align-left">
-                                                <h3><strong>Savings Balance</strong></h3>
+                            <div class="card mb-3 card-curves">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
+                                            data-target="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                            <div class="row">
+                                                <div class="col-6 col-align-left">
+                                                    <h3><strong>Savings Balance</strong></h3>
+                                                </div>
+                                                <div class="col-6 col-align-right">
+                                                    <h3>{{savingBalance}}$</h3>
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-align-right">
-                                                <h3>{{savingBalance}}$</h3>
-                                            </div>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <label>Select an Action:</label>
+                                        <select class="custom-select mb-3 select-collapse"
+                                            aria-label=".form-select-lg example" [(ngModel)]="savingAction">
+                                            <option value="1">Deposit</option>
+                                            <option value="2">Withdraw</option>
+                                            <option value="3">Transfer</option>
+                                        </select>
+                                        <div *ngIf="savingAction == 1">
+                                            <app-deposit (newSavingBalance)="updateSavingBalance()"></app-deposit>
                                         </div>
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                data-parent="#accordion">
-                                <div class="card-body">
-                                    <label>Select an Action:</label>
-                                    <select class="custom-select mb-3 select-collapse"
-                                        aria-label=".form-select-lg example" [(ngModel)]="savingAction">
-                                        <option value="1">Deposit</option>
-                                        <option value="2">Withdraw</option>
-                                        <option value="3">Transfer</option>
-                                    </select>
-                                    <div *ngIf="savingAction == 1">
-                                        <app-deposit (newSavingBalance)="updateSavingBalance()"></app-deposit>
-                                    </div>
-                                    <div *ngIf="savingAction == 2">
-                                        <app-withdraw [withdrawalSource]="'savingBalance'" (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
-                                    </div>
-                                    <div *ngIf="savingAction == 3">
-                                        <app-transfer [transferSource]="'savingBalance'" [transferSourceHtmlValue]="'Savings'" (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
-                                    </div>
+                                        <div *ngIf="savingAction == 2">
+                                            <app-withdraw [withdrawalSource]="'savingBalance'"
+                                                (newWithdrawalEvent)="updateBalanceOnSource($event)"></app-withdraw>
+                                        </div>
+                                        <div *ngIf="savingAction == 3">
+                                            <app-transfer [transferSource]="'savingBalance'"
+                                                [transferSourceHtmlValue]="'Savings'"
+                                                (newTransferEvent)="updateBalanceOnTransfer($event)"></app-transfer>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
         </div>
@@ -103,13 +115,14 @@
 
         <div class="center-floating-container">
 
-            <button type="button" title="Main Dashboard" class="btn btn-purple wallet">
+            <button type="button" title="Main Dashboard" class="btn btn-purple wallet" (click)="changeViewToBasic()">
                 <img src="../../assets/Wallet-icon-white.png" />
             </button>
 
             <p></p>
 
-            <button type="button" title="Transaction History" class="btn btn-purple calender">
+            <button type="button" title="Transaction History" class="btn btn-purple calender"
+                (click)="changeViewToHistory()">
                 <img src="../../assets/calendar-icon.png" />
             </button>
 

@@ -10,6 +10,7 @@ import { AppService } from '../app.service';
 })
 export class DashboardComponent implements OnInit {
 
+	dashboardView = "Basic";
 	walletAction:number=0
 	savingAction:number=0
 
@@ -43,8 +44,17 @@ export class DashboardComponent implements OnInit {
 	updateBalanceOnTransfer(event:any){
 
 		(event.source == "walletBalance") ? this.updateWalletBalance() : this.updateSavingBalance();
-		(event.destination == "walletBalance") ? this.updateWalletBalance() : (event.destination == "savingBalance") ? this.updateSavingBalance() : ()=>{};
+		(event.destination == "walletBalance") ? this.updateWalletBalance() : (event.destination == "savingBalance") 
+			? this.updateSavingBalance() : ()=>{};
 
+	}
+
+	public changeViewToBasic(){
+		this.dashboardView = "Basic";
+	}
+
+	public changeViewToHistory(){
+		this.dashboardView = "History";
 	}
 
 	public logout(){
