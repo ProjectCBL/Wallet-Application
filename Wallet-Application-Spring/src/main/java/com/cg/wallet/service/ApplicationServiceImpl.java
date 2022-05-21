@@ -90,7 +90,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction addMoneyToWallet(Integer customerId, Double amount) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 			
@@ -128,7 +129,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction depositMoney(Integer customerId, Double amount) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 		
@@ -166,7 +168,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction withdrawMoney(Integer customerId, Double amount, String source) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 		
@@ -216,7 +219,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction transferMoney(CreateNewTransferRequest request) {
 		
 		Customer customer = customerRepo.findById(request.getAccountId()).get();
-		Transaction lastTransaction = getLastTransaction(request.getAccountId());
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(request.getAccountId()).size() > 0) 
+				? getLastTransaction(request.getAccountId()) : null;
 		
 		try {
 			
@@ -281,13 +285,21 @@ public class ApplicationServiceImpl implements ApplicationService{
 	@Override
 	public List<Transaction> getLastTenTransactions(Integer customerId) {
 		try {
+			
 			List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(customerId);
-			List<Transaction> lastTenTransactions = transactions.subList(
-					transactions.size()-10, 
-					transactions.size());
-			return lastTenTransactions;
+			
+			if(transactions.size() > 10) {
+				List<Transaction> lastTenTransactions = transactions.subList(
+						transactions.size() - 10, 
+						transactions.size());
+				return lastTenTransactions;
+			}
+			
+			return transactions;
+				
+			
 		}
-		catch(EntityNotFoundException e) {
+		catch(EntityNotFoundException | IndexOutOfBoundsException e) {
 			return Collections.emptyList();
 		}
 	}
@@ -311,7 +323,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private void revertChanges(Customer unalteredCustomer, Transaction lastTransaction) throws EntityNotFoundException{
 		Transaction recentTransaction = getLastTransaction(unalteredCustomer.getCustomerId());
 		customerRepo.save(unalteredCustomer);
-		if (lastTransaction.getTransactionId() != recentTransaction.getTransactionId())
+		if (lastTransaction.getTransactionId() != recentTransaction.getTransactionId() || lastTransaction != null)
 			transactionRepo.delete(recentTransaction);
 	}
 	
