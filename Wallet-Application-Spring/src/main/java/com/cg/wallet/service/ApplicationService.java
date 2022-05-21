@@ -1,8 +1,6 @@
 package com.cg.wallet.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import com.cg.wallet.bean.CreateNewTransferRequest;
 import com.cg.wallet.bean.CreateNewUserRequest;
