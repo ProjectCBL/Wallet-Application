@@ -182,18 +182,19 @@ public class ApplicationServiceImpl implements ApplicationService{
 				newBalance = roundOffBalance(customer.getSavingBalance() - amount);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
 				transaction.setSavingBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
 			else {
 				newBalance = roundOffBalance(customer.getWalletBalance() - amount);
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
+				transaction.setDestination(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
 			
 			transaction.setAmount(amount);
 			transaction.setSource(customer.getUserName() + "-Withdraw");
-			transaction.setDestination(customer.getUserName() + "-" + source);
 			transaction.setCustomer(customer);
 			
 			customerRepo.save(customer);
@@ -233,12 +234,14 @@ public class ApplicationServiceImpl implements ApplicationService{
 				newBalance = roundOffBalance(customer.getSavingBalance() - request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
+				transaction.setSource(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
 			else{
 				newBalance = roundOffBalance(customer.getWalletBalance() - request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
+				transaction.setSource(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
 			
@@ -246,16 +249,19 @@ public class ApplicationServiceImpl implements ApplicationService{
 			if(request.getDestination().equals("savingBalance")) {
 				newBalance = roundOffBalance(customer.getSavingBalance() + request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
 			else if(request.getDestination().equals("walletBalance")){
 				newBalance = roundOffBalance(customer.getWalletBalance() + request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
+			else {
+				transaction.setDestination(request.getDestination());
+			}
 			
-			transaction.setSource(request.getSource());
-			transaction.setDestination(request.getDestination());
 			transaction.setCustomer(customer);
 			
 			customerRepo.save(customer);
