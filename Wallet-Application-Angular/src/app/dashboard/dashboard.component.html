@@ -1,0 +1,131 @@
+<div class="component bg-cover">
+
+    <div>
+        <div class="container">
+
+            <div class="card center-card">
+                <img class="card-img-top img-card" src="../../assets/vector-wallet-icon.png" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title"><strong>Welcome back, {{firstname}}</strong></h4>
+
+                    <div id="accordion">
+
+                        <div class="card mb-3 card-curves">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
+                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="row">
+                                            <div class="col-6 col-align-left">
+                                                <h3><strong>Wallet Balance</strong></h3>
+                                            </div>
+                                            <div class="col-6 col-align-right">
+                                                <h3>{{walletBalance}}$</h3>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordion">
+                                <div class="card-body ">
+
+                                    <select class="form-select form-select-lg mb-3 select-collapse"
+                                        aria-label=".form-select-lg example" [(ngModel)]="walletAction">
+                                        <option>Select an action</option>
+                                        <option value="1">Add</option>
+                                        <option value="2">Wallet</option>
+                                        <option value="3">Transfer</option>
+                                    </select>
+                                    <div *ngIf="walletAction == 1">
+                                        <app-add (newWalletBalance)="updateWalletBalance()"></app-add>
+                                    </div>
+                                    <div *ngIf="walletAction == 2">
+                                        
+                                    </div>
+                                    <div *ngIf="walletAction == 3">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3 card-curves">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button id="btn" class="btn collapsed full-width" data-toggle="collapse"
+                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="row">
+                                            <div class="col-6 col-align-left">
+                                                <h3><strong>Savings Balance</strong></h3>
+                                            </div>
+                                            <div class="col-6 col-align-right">
+                                                <h3>{{savingBalance}}$</h3>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <select class="form-select form-select-lg mb-3 select-collapse"
+                                        aria-label=".form-select-lg example" [(ngModel)]="savingAction">
+                                        <option>Select an action</option>
+                                        <option value="1">Add</option>
+                                        <option value="2">Wallet</option>
+                                        <option value="3">Transfer</option>
+                                    </select>
+                                    <div *ngIf="savingAction == 1">
+
+                                    </div>
+                                    <div *ngIf="savingAction == 2">
+
+                                    </div>
+                                    <div *ngIf="savingAction == 3">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="floating-container">
+
+        <div class="center-floating-container">
+
+            <button type="button" title="Main Dashboard" class="btn btn-purple wallet">
+                <img src="../../assets/Wallet-icon-white.png" />
+            </button>
+
+            <p></p>
+
+            <button type="button" title="Transaction History" class="btn btn-purple calender">
+                <img src="../../assets/calendar-icon.png" />
+            </button>
+
+            <button type="button" title="Log Out" class="btn btn-purple calender" (click)="logout()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-door-open"
+                    viewBox="0 0 16 16">
+                    <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                    <path
+                        d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
+                </svg>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

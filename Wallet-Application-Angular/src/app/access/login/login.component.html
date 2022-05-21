@@ -1,0 +1,19 @@
+<div class="animate-opacity">
+    <h2>Login</h2>
+    <form>
+        <div class="form-group">
+            <label for="usernameForm">Username</label>
+            <input type="text" #username class="form-control" id="usernameForm" placeholder="Enter username" maxlength="50" required>
+        </div>
+        <div class="form-group">
+            <label for="passwordForm">Password</label>
+            <input type="password" #password class="form-control" id="" placeholder="Password" maxlength="50" required>
+        </div>
+        <div [hidden]="loginFailed">
+            <p id="fail-text" class="failed fade-in">You've entered incorrect credentials...</p>
+        </div>
+        <button type="submit" class="btn btn-purple" (click)="validateLogin(username.value, password.value)">Login</button>
+    </form>
+    <br>
+    <p>Don't have an account? <a href="#" id="register-direct" (click)="registerRedirect.emit()">Register Here</a></p>
+</div>

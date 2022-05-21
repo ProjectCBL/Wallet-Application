@@ -1,19 +1,19 @@
 DROP TABLE IF EXISTS Transaction;
 
 CREATE TABLE Transaction(
-    `transactionId` INT NOT NULL AUTO_INCREMENT,
-	`customerId` INT NOT NULL,
+    `transaction_id` INT NOT NULL AUTO_INCREMENT,
     `type` ENUM('Unknown', 'Add', 'Withdraw', 'Deposit', 'Transfer') DEFAULT 'Unknown',
-    `dateOfTransaction` DATETIME DEFAULT NOW(),
-    `walletBalanceBefore` DOUBLE DEFAULT 0.00,
-    `savingBalanceBefore` DOUBLE DEFAULT 0.00,
-    `walletBalanceAfter` DOUBLE DEFAULT 0.00,
-    `savingBalanceAfter` DOUBLE DEFAULT 0.00,
+    `date_of_transaction` DATETIME DEFAULT NOW(),
+    `wallet_balance_before` DOUBLE DEFAULT 0.00,
+    `saving_balance_before` DOUBLE DEFAULT 0.00,
+    `wallet_balance_after` DOUBLE DEFAULT 0.00,
+    `saving_balance_after` DOUBLE DEFAULT 0.00,
     `amount` DOUBLE DEFAULT 0.00,
     `source` VARCHAR(200) NOT NULL,
     `destination` VARCHAR(200) NOT NULL, 
-	PRIMARY KEY(tID),
-    FOREIGN KEY(`customerId`)
-    REFERENCES Customer(`customerId`)
+    `customer_id_fk` INT DEFAULT NULL,
+	PRIMARY KEY(`transaction_id`),
+    CONSTRAINT `FKnbpjofb5abhjg5hiovi0t3k57` FOREIGN KEY(`customer_id_fk`)
+    REFERENCES `Customer` (`customer_id`)
     ON DELETE CASCADE
 )ENGINE=INNODB;
