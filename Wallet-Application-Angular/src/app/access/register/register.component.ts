@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
 		if(username != '' && password != '' && email != '' && firstName != '' && lastName != ''){
 
 			this.appService.register(username, password, email, firstName, lastName).subscribe((response:any)=>{
-				if(response != null){
+				if(response != null && response){
 					this.successfulRegistration.emit();
 					this.loginRedirect.emit();
 				}
