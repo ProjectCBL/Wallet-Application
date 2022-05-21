@@ -36,16 +36,6 @@ public class ApplicationServiceImpl implements ApplicationService{
 		List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(id);
 		return transactions.get(transactions.size()-1);
 	}
-	
-	@Override
-	public List<Customer> getAllCustomers() {
-		return customerRepo.findAll();
-	}
-	
-	@Override
-	public List<Transaction> getAllTransactions() {
-		return transactionRepo.findAll();
-	}
 
 	@Override
 	public Customer validateLogin(String userName, String password) {

@@ -9,12 +9,6 @@ import com.cg.wallet.entities.Transaction;
 
 public interface ApplicationService {
 	
-	// Test Services
-	public abstract Customer getCustomerById(Integer id);
-	public abstract Transaction getRecentTransaction(Integer id);
-	public abstract List<Customer> getAllCustomers();
-	public abstract List<Transaction> getAllTransactions();
-	
 	// Wallet Application Services
 	public abstract Customer validateLogin(String userName, String password);
 	public abstract Boolean addNewUser(CreateNewUserRequest request);
