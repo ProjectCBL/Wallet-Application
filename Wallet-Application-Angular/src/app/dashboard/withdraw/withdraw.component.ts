@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppService } from 'src/app/app.service';
+import { Transaction } from 'src/app/transaction';
 
 @Component({
 	selector: 'app-withdraw',
@@ -16,16 +17,9 @@ export class WithdrawComponent implements OnInit {
 	errorMsg: string = "";
 
 	showTransaction: boolean = false;
-	type: String = ""
-	dateOfTransaction: string = ""
-	timeOfTransaction: string = ""
-	walletBalanceBefore: number = 0;
-	savingBalanceBefore: number = 0;
-	walletBalanceAfter: number = 0;
-	savingBalanceAfter: number = 0;
-	source: string = '';
-	destination: string = '';
-	amount: number = 0;
+	dateOfTransaction: string = "";
+	timeOfTransaction: string = "";
+	transaction: Transaction = new Transaction();
 
 	constructor(private appService: AppService) { }
 
@@ -55,11 +49,11 @@ export class WithdrawComponent implements OnInit {
 				this.showTransaction = true;
 				this.addError = false;
 			},
-				(error) => {
-					this.addError = true;
-					this.errorMsg = error.error;
-					this.showTransaction = false;
-				});
+			(error) => {
+				this.addError = true;
+				this.errorMsg = error.error;
+				this.showTransaction = false;
+			});
 
 		}
 		else {
@@ -74,16 +68,16 @@ export class WithdrawComponent implements OnInit {
 
 		let date = new Date(transaction.dateOfTransaction);
 
-		this.type = transaction.type;
+		this.transaction.type = transaction.type;
 		this.dateOfTransaction = date.toLocaleDateString();
 		this.timeOfTransaction = date.toLocaleTimeString();
-		this.walletBalanceBefore = transaction.walletBalanceBefore;
-		this.savingBalanceBefore = transaction.savingBalanceBefore;
-		this.walletBalanceAfter = transaction.walletBalanceAfter;
-		this.savingBalanceAfter = transaction.savingBalanceAfter;
-		this.source = transaction.source;
-		this.destination = transaction.destination;
-		this.amount = transaction.amount;
+		this.transaction.walletBalanceBefore = transaction.walletBalanceBefore;
+		this.transaction.savingBalanceBefore = transaction.savingBalanceBefore;
+		this.transaction.walletBalanceAfter = transaction.walletBalanceAfter;
+		this.transaction.savingBalanceAfter = transaction.savingBalanceAfter;
+		this.transaction.source = transaction.source;
+		this.transaction.destination = transaction.destination;
+		this.transaction.amount = transaction.amount;
 
 	}
 

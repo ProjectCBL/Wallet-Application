@@ -14,10 +14,11 @@
             <p id="fail-text" class="failed fade-in">{{errorMsg}}</p>
         </div>
         <div *ngIf="showTransaction" id="transaction-summary">
-            <app-transaction-card [type]="type" [dateOfTransaction]="dateOfTransaction"
-                [timeOfTransaction]="timeOfTransaction" [walletBalanceBefore]="walletBalanceBefore"
-                [savingBalanceBefore]="savingBalanceBefore" [walletBalanceAfter]="walletBalanceAfter"
-                [savingBalanceAfter]="savingBalanceAfter" [source]="source" [destination]="destination" [amount]="amount">
+            <app-transaction-card [type]="transaction.type" [dateOfTransaction]="dateOfTransaction"
+                [timeOfTransaction]="timeOfTransaction" [walletBalanceBefore]="transaction.walletBalanceBefore"
+                [savingBalanceBefore]="transaction.savingBalanceBefore"
+                [walletBalanceAfter]="transaction.walletBalanceAfter" [savingBalanceAfter]="transaction.savingBalanceAfter"
+                [source]="transaction.source" [destination]="transaction.destination" [amount]="transaction.amount">
             </app-transaction-card>
         </div>
     
