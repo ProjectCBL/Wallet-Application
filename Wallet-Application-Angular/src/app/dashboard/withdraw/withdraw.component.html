@@ -14,6 +14,7 @@
             <p id="fail-text" class="failed fade-in">{{errorMsg}}</p>
         </div>
         <div *ngIf="showTransaction" id="transaction-summary">
+            <hr>
             <app-transaction-card [type]="transaction.type" [dateOfTransaction]="dateOfTransaction"
                 [timeOfTransaction]="timeOfTransaction" [walletBalanceBefore]="transaction.walletBalanceBefore"
                 [savingBalanceBefore]="transaction.savingBalanceBefore"
