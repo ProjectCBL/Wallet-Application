@@ -1,43 +1,88 @@
 <div>
     <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header page-nav">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active">1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">3</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">4</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">5</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">6</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">7</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">8</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">9</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">10</a>
-                </li>
+                <div *ngFor="let transaction of transactions; let i = index">
+                    <li class="nav-item" value="{{i}}" (click)="changeActive(i)">
+                        <a class="nav-link" [ngClass]="{'active' : currentIndex == i}" id="tab-{{i}}">{{i + 1}}</a>
+                    </li>
+                </div>
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div *ngIf="showError">
+                <div class="mb-5 mt-5">
+                    <p>Something went wrong, try again later...</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="purple"
+                        class="bi bi-emoji-dizzy" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M9.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm-5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM10 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div *ngIf="transactions.length == 0">
+                <p>It seems you haven't made a transaction with us yet.</p>
+            </div>
+            <div *ngIf="transactions.length != 0">
+                <div class="containter">
+                    <h4><strong>Transaction</strong></h4>
+                    <div class="row mb-4 mt-4">
+                        <div class="col-xl-12">
+                            <strong>Transaction Type: </strong> {{transactions[currentIndex].type}}
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-xl-1"> </div>
+                        <div class="col-xl-5">
+                            <strong>Date of Transaction:</strong><br>{{dateOfTransaction}}
+                        </div>
+                        <div class="col-xl-5">
+                            <strong>Time of Transaction:</strong><br>{{timeOfTransaction}}
+                        </div>
+                        <div class="col-xl-1"> </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-xl-1"> </div>
+                        <div class="col-xl-5">
+                            <strong>Before:</strong>
+                            <br>
+                            Wallet Balance: {{transactions[currentIndex].walletBalanceBefore}}$
+                            <br>
+                            Saving Balance: {{transactions[currentIndex].savingBalanceBefore}}$
+                        </div>
+                        <div class="col-xl-5">
+                            <strong>After:</strong>
+                            <br>
+                            Wallet Balance: {{transactions[currentIndex].walletBalanceAfter}}$
+                            <br>
+                            Saving Balance: {{transactions[currentIndex].savingBalanceAfter}}$
+                        </div>
+                        <div class="col-xl-1"> </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-xl-1"> </div>
+                        <div class="col-xl-5">
+                            <strong>Source:</strong>
+                            <br>
+                            {{transactions[currentIndex].source}}
+                        </div>
+                        <div class="col-xl-5">
+                            <strong>Destination:</strong>
+                            <br>
+                            {{transactions[currentIndex].destination}}
+                        </div>
+                        <div class="col-xl-1"> </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-xl-12">
+                            <h5><strong>Amount:</strong>
+                                <div class="money">{{transactions[currentIndex].amount}}$</div>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
