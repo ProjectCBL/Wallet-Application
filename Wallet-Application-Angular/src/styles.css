@@ -32,3 +32,21 @@ a:hover{
 .failed{
     color: red;
 }
+
+.money{
+    color: blueviolet;
+}
+
+.page-nav{
+    background-color: rgb(181, 20, 187);
+    color: white;
+}
+
+.nav-link:hover{
+    border: 1px 1px blueviolet;
+    cursor: pointer;
+}
+
+.nav-link.active{
+    color: rgb(147, 76, 214);
+}
