@@ -49,11 +49,11 @@ export class DepositComponent implements OnInit {
 				this.showTransaction = true;
 				this.addError = false;
 			},
-				(error) => {
-					this.addError = true;
-					this.errorMsg = error.error;
-					this.showTransaction = false;
-				});
+			(error) => {
+				this.addError = true;
+				this.errorMsg = error.error;
+				this.showTransaction = false;
+			});
 
 		}
 		else {

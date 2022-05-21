@@ -20,7 +20,6 @@ export class RecentTransactionsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getRecentTransactions();
-		console.log(this.transactions);
 	}
 
 	getRecentTransactions(){
