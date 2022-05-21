@@ -1,5 +1,7 @@
 package com.cg.wallet.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -227,7 +229,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 			transaction.setAmount(request.getAmount());
 			
 			// Source
-			if(request.getSource().equals("Saving")) {
+			if(request.getSource().equals("savingBalance")) {
 				newBalance = roundOffBalance(customer.getSavingBalance() - request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
@@ -241,12 +243,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 			}
 			
 			// Destination
-			if(request.getDestination().equals("Saving")) {
+			if(request.getDestination().equals("savingBalance")) {
 				newBalance = roundOffBalance(customer.getSavingBalance() + request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				customer.setSavingBalance(newBalance);
 			}
-			else if(request.getDestination().equals("Wallet")){
+			else if(request.getDestination().equals("walletBalance")){
 				newBalance = roundOffBalance(customer.getWalletBalance() + request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
 				customer.setWalletBalance(newBalance);
@@ -285,13 +287,16 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 
 	@Override
-	public List<Transaction> findTransactionsAtDate(Integer customerId, Date searchDate) {
+	public List<Transaction> findTransactionsAtDate(Integer customerId, String searchDate) {
 		try {
-			return transactionRepo.getTransactionsAtDate(customerId, searchDate);
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd"); 
+			Date date = dateFormatter.parse(searchDate);
+			return transactionRepo.getTransactionsAtDate(customerId, date);
 		}
-		catch(EntityNotFoundException e) {
+		catch(EntityNotFoundException | ParseException e) {
+			e.printStackTrace();
 			return Collections.emptyList();
-		}
+		} 
 	}
 	
 	// Although rollback is applied with the @Transactional annotation, this only triggers on the entity

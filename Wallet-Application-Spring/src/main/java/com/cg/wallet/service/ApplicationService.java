@@ -25,6 +25,6 @@ public interface ApplicationService {
 	public abstract Transaction depositMoney(Integer customerId, Double amount);
 	public abstract Transaction transferMoney(CreateNewTransferRequest request);
 	public abstract List<Transaction> getLastTenTransactions(Integer customerId);
-	public abstract List<Transaction> findTransactionsAtDate(Integer customerId, Date searchDate);
+	public abstract List<Transaction> findTransactionsAtDate(Integer customerId, String searchDate);
 	
 }
