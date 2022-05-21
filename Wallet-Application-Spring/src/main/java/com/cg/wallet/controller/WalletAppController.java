@@ -31,31 +31,7 @@ public class WalletAppController {
 
 	@Autowired
 	ApplicationService appService;
-	
-	//region Mapped routes used to test various inputs and outputs of the controller
-	
-	@RequestMapping(value="/findCustomer", method=RequestMethod.POST)
-	public Customer findCustomer(@RequestParam("id") Integer id) {
-		return appService.getCustomerById(id);
-	}
-	
-	@RequestMapping(value="/findRecentTransaction", method=RequestMethod.POST)
-	public Transaction findRecentTransaction(@RequestParam("id") Integer id) {
-		return appService.getRecentTransaction(id);
-	}
-	
-	@RequestMapping(value="/allCustomers")
-	public List<Customer> allCustomers() {
-		return appService.getAllCustomers();
-	}
-	
-	@RequestMapping(value="/allTransactions")
-	public List<Transaction> allTransactions() {
-		return appService.getAllTransactions();
-	}
-	
-	//endregion
-	
+
 	//region Wallet Application Routes
 	
 	@RequestMapping(value="/validateLogin", method=RequestMethod.POST)

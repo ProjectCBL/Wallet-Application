@@ -19,6 +19,7 @@ import { RecentTransactionsComponent } from './dashboard/history/recent-transact
 import { TransactionSearchByDateComponent } from './dashboard/history/transaction-search-by-date/transaction-search-by-date.component';
 
 import { NumberOnlyDirective } from './numbers-only.directive';
+import { TransactionCardComponent } from './transaction-card/transaction-card.component';
 
 const routes: Routes = [
 	{ path: '', component: AccessComponent },
@@ -39,7 +40,8 @@ const routes: Routes = [
 		HistoryComponent,
 		RecentTransactionsComponent,
 		TransactionSearchByDateComponent,
-		NumberOnlyDirective
+		NumberOnlyDirective,
+  		TransactionCardComponent
 	],
 	imports: [
 		BrowserModule,

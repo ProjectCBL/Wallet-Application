@@ -1,5 +1,7 @@
 package com.cg.wallet.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -33,16 +35,6 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction getRecentTransaction(Integer id) {
 		List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(id);
 		return transactions.get(transactions.size()-1);
-	}
-	
-	@Override
-	public List<Customer> getAllCustomers() {
-		return customerRepo.findAll();
-	}
-	
-	@Override
-	public List<Transaction> getAllTransactions() {
-		return transactionRepo.findAll();
 	}
 
 	@Override
@@ -88,11 +80,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction addMoneyToWallet(Integer customerId, Double amount) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 			
-			Double newBalance = customer.getWalletBalance() + amount;
+			Double newBalance = roundOffBalance(customer.getWalletBalance() + amount);
 			
 			Transaction transaction = new Transaction();
 			transaction.setType("Add");
@@ -126,11 +119,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction depositMoney(Integer customerId, Double amount) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 		
-			Double newBalance = customer.getSavingBalance() + amount;
+			Double newBalance = roundOffBalance(customer.getSavingBalance() + amount);
 			
 			Transaction transaction = new Transaction();
 			transaction.setType("Deposit");
@@ -164,7 +158,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction withdrawMoney(Integer customerId, Double amount, String source) {
 		
 		Customer customer = customerRepo.findById(customerId).get();
-		Transaction lastTransaction = getLastTransaction(customerId);
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(customerId).size() > 0) 
+				? getLastTransaction(customerId) : null;
 		
 		try {
 		
@@ -176,22 +171,23 @@ public class ApplicationServiceImpl implements ApplicationService{
 			transaction.setWalletBalanceBefore(customer.getWalletBalance());
 			transaction.setSavingBalanceBefore(customer.getSavingBalance());
 			
-			if(source.equals("Saving")) {
-				newBalance = customer.getSavingBalance() - amount;
+			if(source.equals("savingBalance")) {
+				newBalance = roundOffBalance(customer.getSavingBalance() - amount);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
 				transaction.setSavingBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
 			else {
-				newBalance = customer.getWalletBalance() - amount;
+				newBalance = roundOffBalance(customer.getWalletBalance() - amount);
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
+				transaction.setDestination(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
 			
 			transaction.setAmount(amount);
 			transaction.setSource(customer.getUserName() + "-Withdraw");
-			transaction.setDestination(customer.getUserName() + "-" + source);
 			transaction.setCustomer(customer);
 			
 			customerRepo.save(customer);
@@ -213,7 +209,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public Transaction transferMoney(CreateNewTransferRequest request) {
 		
 		Customer customer = customerRepo.findById(request.getAccountId()).get();
-		Transaction lastTransaction = getLastTransaction(request.getAccountId());
+		Transaction lastTransaction = (transactionRepo.getAllTransactionsFromCustomer(request.getAccountId()).size() > 0) 
+				? getLastTransaction(request.getAccountId()) : null;
 		
 		try {
 			
@@ -227,33 +224,38 @@ public class ApplicationServiceImpl implements ApplicationService{
 			transaction.setAmount(request.getAmount());
 			
 			// Source
-			if(request.getSource().equals("Saving")) {
-				newBalance = customer.getSavingBalance() - request.getAmount();
+			if(request.getSource().equals("savingBalance")) {
+				newBalance = roundOffBalance(customer.getSavingBalance() - request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
 				transaction.setWalletBalanceAfter(customer.getWalletBalance());
+				transaction.setSource(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
 			else{
-				newBalance = customer.getWalletBalance() - request.getAmount();
+				newBalance = roundOffBalance(customer.getWalletBalance() - request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
 				transaction.setSavingBalanceAfter(customer.getSavingBalance());
+				transaction.setSource(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
 			
 			// Destination
-			if(request.getDestination().equals("Saving")) {
-				newBalance = customer.getSavingBalance() + request.getAmount();
+			if(request.getDestination().equals("savingBalance")) {
+				newBalance = roundOffBalance(customer.getSavingBalance() + request.getAmount());
 				transaction.setSavingBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Saving");
 				customer.setSavingBalance(newBalance);
 			}
-			else if(request.getDestination().equals("Wallet")){
-				newBalance = customer.getWalletBalance() + request.getAmount();
+			else if(request.getDestination().equals("walletBalance")){
+				newBalance = roundOffBalance(customer.getWalletBalance() + request.getAmount());
 				transaction.setWalletBalanceAfter(newBalance);
+				transaction.setDestination(customer.getUserName() + "-Wallet");
 				customer.setWalletBalance(newBalance);
 			}
+			else {
+				transaction.setDestination(request.getDestination());
+			}
 			
-			transaction.setSource(request.getSource());
-			transaction.setDestination(request.getDestination());
 			transaction.setCustomer(customer);
 			
 			customerRepo.save(customer);
@@ -273,25 +275,36 @@ public class ApplicationServiceImpl implements ApplicationService{
 	@Override
 	public List<Transaction> getLastTenTransactions(Integer customerId) {
 		try {
+			
 			List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(customerId);
-			List<Transaction> lastTenTransactions = transactions.subList(
-					transactions.size()-10, 
-					transactions.size());
-			return lastTenTransactions;
+			
+			if(transactions.size() > 10) {
+				List<Transaction> lastTenTransactions = transactions.subList(
+						transactions.size() - 10, 
+						transactions.size());
+				return lastTenTransactions;
+			}
+			
+			return transactions;
+				
+			
 		}
-		catch(EntityNotFoundException e) {
+		catch(EntityNotFoundException | IndexOutOfBoundsException e) {
 			return Collections.emptyList();
 		}
 	}
 
 	@Override
-	public List<Transaction> findTransactionsAtDate(Integer customerId, Date searchDate) {
+	public List<Transaction> findTransactionsAtDate(Integer customerId, String searchDate) {
 		try {
-			return transactionRepo.getTransactionsAtDate(customerId, searchDate);
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd"); 
+			Date date = dateFormatter.parse(searchDate);
+			return transactionRepo.getTransactionsAtDate(customerId, date);
 		}
-		catch(EntityNotFoundException e) {
+		catch(EntityNotFoundException | ParseException e) {
+			e.printStackTrace();
 			return Collections.emptyList();
-		}
+		} 
 	}
 	
 	// Although rollback is applied with the @Transactional annotation, this only triggers on the entity
@@ -300,13 +313,17 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private void revertChanges(Customer unalteredCustomer, Transaction lastTransaction) throws EntityNotFoundException{
 		Transaction recentTransaction = getLastTransaction(unalteredCustomer.getCustomerId());
 		customerRepo.save(unalteredCustomer);
-		if (lastTransaction.getTransactionId() != recentTransaction.getTransactionId())
+		if (lastTransaction.getTransactionId() != recentTransaction.getTransactionId() || lastTransaction != null)
 			transactionRepo.delete(recentTransaction);
 	}
 	
 	private Transaction getLastTransaction(Integer customerId) {
 		List<Transaction> transactions = transactionRepo.getAllTransactionsFromCustomer(customerId);
 		return transactions.get(transactions.size()-1);
+	}
+	
+	private Double roundOffBalance(Double balance) {
+		return Math.round(balance * 100.0) / 100.0;
 	}
 	
 }

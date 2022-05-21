@@ -66,7 +66,7 @@ export class AppService {
     }
 
     public searchForTransactionAtDate(accountId: number, transactionDate: string): Observable<Transaction[]>{
-        return this.httpClient.post<Transaction[]>('http://localhost:8080/wallet-application/searchForTransactionAtDate', {
+        return this.httpClient.post<Transaction[]>('http://localhost:8080/wallet-application/searchForTransactionsAtDate', {
             "accountId":accountId,
             "transactionDate":transactionDate
         });

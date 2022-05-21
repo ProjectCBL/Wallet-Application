@@ -1,0 +1,58 @@
+<div>
+    <h4>Transaction Summary</h4>
+    <table>
+        <tr>
+            <div class="row mb-2">
+                <div class="col-xl-12"><strong>Transaction Type: </strong>{{type}}</div>
+            </div>
+        </tr>
+        <tr>
+            <div class="row mb-2">
+                <div class="col-xl-5">
+                    <strong>Date of Transaction:</strong> {{dateOfTransaction}}
+                </div>
+                <div class="col-xl-2"> </div>
+                <div class="col-xl-5">
+                    <strong>Time of Transaction:</strong> {{timeOfTransaction}}
+                </div>
+            </div>
+        </tr>
+        <tr>
+            <div class="row mb-2">
+                <div class="col-xl-5">
+                    <strong>Before:</strong>
+                    <br>
+                    Wallet Balance: {{walletBalanceBefore}}$
+                    <br>
+                    Saving Balance: {{savingBalanceBefore}}$
+                </div>
+                <div class="col-xl-2"> </div>
+                <div class="col-xl-5">
+                    <strong>After:</strong>
+                    <br>
+                    Wallet Balance: {{walletBalanceAfter}}$
+                    <br>
+                    Saving Balance: {{savingBalanceAfter}}$
+                </div>
+            </div>
+        </tr>
+        <tr>
+            <div class="row mb-2">
+                <div class="col-xl-5">
+                    <strong>Source:</strong>
+                    <br>
+                    {{source}}
+                </div>
+                <div class="col-xl-2"> </div>
+                <div class="col-xl-5">
+                    <strong>Destination:</strong>
+                    <br>
+                    {{destination}}
+                </div>
+            </div>
+        </tr>
+        <tr>
+            <td><strong>Amount:</strong> {{amount}}$</td>
+        </tr>
+    </table>
+</div>

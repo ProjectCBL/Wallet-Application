@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+	selector: 'app-history',
+	templateUrl: './history.component.html',
+	styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+	historyView:string = "Last Ten";
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+
+	ngOnInit(): void {
+	}
+
+	public changeViewToLastTen(){
+		this.historyView = "Last Ten"
+	}
+
+	public changeViewToSearchByDate(){
+		this.historyView = "Search By Date"
+	}
 
 }

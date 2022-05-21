@@ -1,1 +1,24 @@
-<p>history works!</p>
+<div>
+    <div class="card center-card">
+        <div class="card-body">
+            <div class="row title-nav">
+                <div class="col-4"></div>
+                <div class="col-4 title-text">
+                    <h4 class="card-title mt-4"><strong>Transactional History</strong></h4>
+                </div>
+                <div class="col-4">
+                    <div class="title-links">
+                        <a><u (click)="changeViewToLastTen()">Recent</u></a> | <a><u (click)="changeViewToSearchByDate()">Search</u></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div *ngIf="historyView=='Last Ten'">
+                <app-recent-transactions></app-recent-transactions>
+            </div>
+            <div *ngIf="historyView=='Search By Date'">
+                <app-transaction-search-by-date></app-transaction-search-by-date>
+            </div>
+        </div>
+    </div>
+</div>

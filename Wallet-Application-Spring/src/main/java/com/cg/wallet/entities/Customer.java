@@ -44,7 +44,4 @@ public class Customer {
 	@Column(name="saving_balance")
 	private Double savingBalance;
 	
-	//@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//private List<Transaction> transactions;
-	
 }
