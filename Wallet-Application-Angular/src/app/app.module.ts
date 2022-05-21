@@ -41,7 +41,7 @@ const routes: Routes = [
 		RecentTransactionsComponent,
 		TransactionSearchByDateComponent,
 		NumberOnlyDirective,
-  TransactionCardComponent
+  		TransactionCardComponent
 	],
 	imports: [
 		BrowserModule,
